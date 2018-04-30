@@ -14,9 +14,8 @@ This project implements a simple Restful API on AWS using the following tech sta
 The API accepts the following JSON requests and produces the corresponding HTTP responses:
 
 
----
 
-### REQUEST 1:
+### Request 1:
 ```
 HTTP POST
 URL: https://`API-GATEWAY-URL`/api/devices
@@ -64,9 +63,8 @@ HTTP 500 Internal Server Error
 If any exceptional situation occurs on the server side.
 
 
----
 
-### REQUEST 2:
+### Request 2:
 ```
 HTTP GET
 URL: https://`API-GATEWAY-URL`/api/devices/{id}
@@ -104,6 +102,8 @@ HTTP 500 Internal Server Error
 ```
 If any exceptional situation occurs on the server side.
 
+
+---
 
 ## Project Structure
 Two AWS Lambda functions are responsible for mentioned tasks:
