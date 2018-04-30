@@ -31,7 +31,7 @@ Body (application/json):
 
 
 
-Response 1 - Success:
+#### Response 1 - Success:
 ```
 HTTP 201 Created
 Body (application/json):
@@ -46,7 +46,7 @@ Body (application/json):
 
 
 
-Response 1 - Failure 1:
+#### Response 1 - Failure 1:
 ```
 HTTP 400 Bad Request
 ```
@@ -56,7 +56,7 @@ If any of the payload fields are missing. Response body should
 
 
 
-Response 1 - Failure 2:
+#### Response 1 - Failure 2:
 ```
 HTTP 500 Internal Server Error
 ```
@@ -73,7 +73,7 @@ Example: GET https://api123.amazonaws.com/api/devices/id1
 
 
 
-Response 2 - Success:
+#### Response 2 - Success:
 ```
 HTTP 200 OK
 Body (application/json):
@@ -88,7 +88,7 @@ Body (application/json):
 
 
 
-Response 2 - Failure 1:
+#### Response 2 - Failure 1:
 ```
 HTTP 404 Not Found
 ```
@@ -96,7 +96,7 @@ If the request id does not exist.
 
 
 
-Response 2 - Failure 2:
+#### Response 2 - Failure 2:
 ```
 HTTP 500 Internal Server Error
 ```
