@@ -1,5 +1,5 @@
 # Simple Restful API on AWS
-
+---
 ## Project description
 This project implements a simple Restful API on AWS using the following tech stack:
 
@@ -12,7 +12,7 @@ This project implements a simple Restful API on AWS using the following tech sta
 
 The API accepts the following JSON requests and produces the corresponding HTTP responses:
 
-
+---
 ### REQUEST 1:
 ```
 HTTP POST
@@ -26,6 +26,7 @@ Body (application/json):
   "serial": "A020000102"
 }
 ```
+---
 Response 1 - Success:
 ```
 HTTP 201 Created
@@ -38,6 +39,7 @@ Body (application/json):
   "serial": "A020000102"
 }
 ```
+---
 Response 1 - Failure 1:
 ```
 HTTP 400 Bad Request
@@ -45,7 +47,7 @@ HTTP 400 Bad Request
 If any of the payload fields are missing. Response body should
  have a descriptive error message for the client to be able to
  detect the problem.
-
+---
 Response 1 - Failure 2:
 ```
 HTTP 500 Internal Server Error
@@ -59,6 +61,7 @@ HTTP GET
 URL: https://`API-GATEWAY-URL`/api/devices/{id}
 Example: GET https://api123.amazonaws.com/api/devices/id1
 ```
+---
 Response 2 - Success:
 ```
 HTTP 200 OK
@@ -71,21 +74,19 @@ Body (application/json):
   "serial": "A020000102"
 }
 ```
+---
 Response 2 - Failure 1:
 ```
 HTTP 404 Not Found
 ```
 If the request id does not exist.
-
+---
 Response 2 - Failure 2:
 ```
 HTTP 500 Internal Server Error
 ```
-
 If any exceptional situation occurs on the server side.
 
-
----
 
 ## Project Structure
 Two AWS Lambda functions are responsible for mentioned tasks:
@@ -121,13 +122,13 @@ After successful deployment, two URLs will be generated. This is your deployment
 
 ## Testing
 For testing by URL, replace you `API-GATEWAY-URL` with following `curl` commands:
-**Create a new device:**
+### Create a new device:
 ```
 curl -i -H "Content-Type: application/json" -X POST -d '{"id":"/devices/id1","deviceModel":"/devicemodels/id1","name":"Sensor","note":"Testing a sensor.","serial":"A020000102"}' https://API-GATEWAY-URL/devices
 ```
 If you try to create another device using an existing `id`, the old item will be replaced by new item.
 
-**Get an existing device by providing an id:**
+### Get an existing device by providing an id:
 ```
 curl -i https://API-GATEWAY-URL/devices/id1
 ```
