@@ -111,6 +111,7 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	// Create DynamoDB client
 	//db := dynamodb.New(sess)
 	svc := dynamodb.New(sess)
+        // Converting to mock DynamoDB client for test
 	db := MockDynamoDB{svc}
 
 	// Try to prepare a DynamoDB item structure from Device
