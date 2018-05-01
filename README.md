@@ -163,7 +163,7 @@ Open the `cover.html` using a browser. Covered areas are shown in green. Coverag
 ```
 device-db/tests/getDeviceInfo/main.go:30:	Handler		83.3%
 device-db/tests/getDeviceInfo/main.go:119:	main		0.0%
-total:						(statements)	**80.0%**
+total:						(statements)	80.0%
 ```
 
 #### postNewDevice:
@@ -171,7 +171,7 @@ total:						(statements)	**80.0%**
 device-db/tests/postNewDevice/main.go:30:	createNewDevice	100.0%
 device-db/tests/postNewDevice/main.go:76:	Handler		84.0%
 device-db/tests/postNewDevice/main.go:162:	main		0.0%
-total:						(statements)	**89.6%**
+total:						(statements)	89.6%
 ```
 
 The `cover.html` files demonstrate that error handling codes for JSON marshaling/unmarshaling and also AWS session creation were not covered. However, it is still possible to obtain 100% coverage in both files. In order to achieve 100% coverage, one must implement mock methods that generate intentional errors for JSON marshaling/unmarshaling and AWS session as well.
