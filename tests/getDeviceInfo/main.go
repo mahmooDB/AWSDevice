@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"os"
 
+	"data"
+
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go/aws"
@@ -13,15 +15,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	//"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
 )
-
-// struct for storing a device object
-type Device struct {
-	Id          string `json:"id"`
-	DeviceModel string `json:"deviceModel"`
-	Name        string `json:"name"`
-	Note        string `json:"note"`
-	Serial      string `json:"serial"`
-}
 
 // Handler: responsible for taking GET requests from user that provide a id by
 // path parameter and produce appropriate response.
@@ -89,7 +82,7 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	}
 
 	// Create a device object from result
-	device := Device{}
+	device := data.Device{}
 	err = dynamodbattribute.UnmarshalMap(result.Item, &device)
 	// If somthing went wrong with unmarshaling, return error 500
 	if err != nil {

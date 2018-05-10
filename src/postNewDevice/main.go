@@ -6,6 +6,8 @@ import (
 	"errors"
 	"os"
 
+	"data"
+
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-sdk-go/aws"
@@ -14,20 +16,11 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 )
 
-// struct for storing a device object
-type Device struct {
-	Id          string `json:"id"`
-	DeviceModel string `json:"deviceModel"`
-	Name        string `json:"name"`
-	Note        string `json:"note"`
-	Serial      string `json:"serial"`
-}
-
 // createNewDevice: takes a string mapped json and checks for requested fields
 // if all of required fields are provided returns a new Device object
 // Input: a string mapped json
 // Output: a new Device object
-func createNewDevice(jsonMap map[string]interface{}) (Device, error) {
+func createNewDevice(jsonMap map[string]interface{}) (data.Device, error) {
 
 	// Check if input fields are missing
 	errFlag := false
@@ -55,11 +48,11 @@ func createNewDevice(jsonMap map[string]interface{}) (Device, error) {
 	// If any fields are missing, return error
 	errMsg = errMsg + "\n"
 	if errFlag == true {
-		return Device{}, errors.New(errMsg)
+		return data.Device{}, errors.New(errMsg)
 	}
 
 	// Create new device object otherwise
-	newDevice := Device{Id: jsonMap["id"].(string),
+	newDevice := data.Device{Id: jsonMap["id"].(string),
 		DeviceModel: jsonMap["deviceModel"].(string),
 		Name:        jsonMap["name"].(string),
 		Note:        jsonMap["note"].(string),

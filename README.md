@@ -111,7 +111,10 @@ Two AWS Lambda functions are responsible for mentioned tasks:
  2. `getDeviceInfo` for handling GET request
 
 
-**Golang** code for these functions are stored in corresponding folders. Both of these functions connect to a DynamoDB table named "devices". This table and all of the necessary resources and permissions are described in `serverless.yml` file. The serverless will automatically generate required resources. Finally, unit tests and test results are stored in `tests` folder.
+**Golang** code for these functions are stored in `src/postNewDevice/main.go` and `src/getDeviceInfo/main.go` files. Data structure for `Device` is shared for both lambda functions. The code for `Device` struct is avaialble at `src/vendor/data` folder.
+
+
+Both of these functions connect to a DynamoDB table named "devices". This table and all of the necessary resources and permissions are described in `serverless.yml` file. The serverless will automatically generate required resources. Finally, unit tests and test results are stored in `tests` folder.
 
 ---
 

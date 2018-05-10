@@ -54,7 +54,7 @@
 			<div id="nav">
 				<select id="files">
 				
-				<option value="file0">device-db/postNewDevice/main.go (89.6%)</option>
+				<option value="file0">device-db/tests/postNewDevice/main.go (89.6%)</option>
 				
 				</select>
 			</div>
@@ -76,6 +76,8 @@ import (
         "errors"
         "os"
 
+        "data"
+
         "github.com/aws/aws-lambda-go/events"
         "github.com/aws/aws-lambda-go/lambda"
         "github.com/aws/aws-sdk-go/aws"
@@ -84,20 +86,11 @@ import (
         "github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 )
 
-// struct for storing a device object
-type Device struct {
-        Id          string `json:"id"`
-        DeviceModel string `json:"deviceModel"`
-        Name        string `json:"name"`
-        Note        string `json:"note"`
-        Serial      string `json:"serial"`
-}
-
 // createNewDevice: takes a string mapped json and checks for requested fields
 // if all of required fields are provided returns a new Device object
 // Input: a string mapped json
 // Output: a new Device object
-func createNewDevice(jsonMap map[string]interface{}) (Device, error) <span class="cov8" title="1">{
+func createNewDevice(jsonMap map[string]interface{}) (data.Device, error) <span class="cov8" title="1">{
 
         // Check if input fields are missing
         errFlag := false
@@ -125,11 +118,11 @@ func createNewDevice(jsonMap map[string]interface{}) (Device, error) <span class
         // If any fields are missing, return error
         <span class="cov8" title="1">errMsg = errMsg + "\n"
         if errFlag == true </span><span class="cov8" title="1">{
-                return Device{}, errors.New(errMsg)
+                return data.Device{}, errors.New(errMsg)
         }</span>
 
         // Create new device object otherwise
-        <span class="cov8" title="1">newDevice := Device{Id: jsonMap["id"].(string),
+        <span class="cov8" title="1">newDevice := data.Device{Id: jsonMap["id"].(string),
                 DeviceModel: jsonMap["deviceModel"].(string),
                 Name:        jsonMap["name"].(string),
                 Note:        jsonMap["note"].(string),
@@ -181,6 +174,7 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
         // Create DynamoDB client
         //db := dynamodb.New(sess)
         <span class="cov8" title="1">svc := dynamodb.New(sess)
+        // Converting to mock DynamoDB client for test
         db := MockDynamoDB{svc}
 
         // Try to prepare a DynamoDB item structure from Device
