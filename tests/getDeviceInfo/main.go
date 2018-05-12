@@ -13,8 +13,20 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
-	//"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbiface"
 )
+
+// Global AWS session variables
+var sess *session.Session
+var errSess error
+
+// Init function creates an globally accessible AWS session
+func init() {
+	// Initialize an aws session
+	region := os.Getenv("AWS_REGION")
+	sess, errSess = session.NewSession(&aws.Config{
+		Region: &region},
+	)
+}
 
 // Handler: responsible for taking GET requests from user that provide a id by
 // path parameter and produce appropriate response.
@@ -35,15 +47,10 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	// Add /devices/ path to the begining of input id
 	id = "/devices/" + id
 
-	// Initialize an aws session
-	region := os.Getenv("AWS_REGION")
-	sess, err := session.NewSession(&aws.Config{
-		Region: &region},
-	)
 	// If somthing went wrong with session creation, return error 500
-	if err != nil {
+	if errSess != nil {
 		return events.APIGatewayProxyResponse{
-			Body:       "Internal Server Error 1\nSession error: " + err.Error(),
+			Body:       "Internal Server Error 1\nSession error: " + errSess.Error(),
 			StatusCode: 500,
 		}, nil
 	}
@@ -52,8 +59,6 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	svc := dynamodb.New(sess)
 	// Converting to mock DynamoDB client for test
 	db := MockDynamoDB{svc}
-
-	//Dyna := dynamodbiface.DynamoDBAPI(svc)
 
 	// Get table name from OS
 	tableName := aws.String(os.Getenv("DEVICES_TABLE_NAME"))

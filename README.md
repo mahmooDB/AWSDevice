@@ -164,16 +164,18 @@ Open the `cover.html` using a browser. Covered areas are shown in green. Coverag
 
 #### getDeviceInfo:
 ```
-device-db/tests/getDeviceInfo/main.go:30:	Handler		83.3%
-device-db/tests/getDeviceInfo/main.go:119:	main		0.0%
+device-db/tests/getDeviceInfo/main.go:23:	init		100.0%
+device-db/tests/getDeviceInfo/main.go:35:	Handler		81.8%
+device-db/tests/getDeviceInfo/main.go:117:	main		0.0%
 total:						(statements)	80.0%
 ```
 
 #### postNewDevice:
 ```
-device-db/tests/postNewDevice/main.go:30:	createNewDevice	100.0%
-device-db/tests/postNewDevice/main.go:76:	Handler		84.0%
-device-db/tests/postNewDevice/main.go:162:	main		0.0%
+device-db/tests/postNewDevice/main.go:24:	init		100.0%
+device-db/tests/postNewDevice/main.go:36:	createNewDevice	100.0%
+device-db/tests/postNewDevice/main.go:82:	Handler		82.6%
+device-db/tests/postNewDevice/main.go:163:	main		0.0%
 total:						(statements)	89.6%
 ```
 

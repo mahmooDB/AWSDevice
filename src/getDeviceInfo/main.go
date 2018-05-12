@@ -15,6 +15,19 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 )
 
+// Global AWS session variables
+var sess *session.Session
+var errSess error
+
+// Init function creates an globally accessible AWS session
+func init() {
+	// Initialize an aws session
+	region := os.Getenv("AWS_REGION")
+	sess, errSess = session.NewSession(&aws.Config{
+		Region: &region},
+	)
+}
+
 // Handler: responsible for taking GET requests from user that provide a id by
 // path parameter and produce appropriate response.
 // Input: id (provided by GET/path)
@@ -34,15 +47,10 @@ func Handler(request events.APIGatewayProxyRequest) (events.APIGatewayProxyRespo
 	// Add /devices/ path to the begining of input id
 	id = "/devices/" + id
 
-	// Initialize an aws session
-	region := os.Getenv("AWS_REGION")
-	sess, err := session.NewSession(&aws.Config{
-		Region: &region},
-	)
 	// If somthing went wrong with session creation, return error 500
-	if err != nil {
+	if errSess != nil {
 		return events.APIGatewayProxyResponse{
-			Body:       "Internal Server Error 1\nSession error: " + err.Error(),
+			Body:       "Internal Server Error 1\nSession error: " + errSess.Error(),
 			StatusCode: 500,
 		}, nil
 	}
